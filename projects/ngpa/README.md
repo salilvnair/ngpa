@@ -1,7 +1,6 @@
-![npm (scoped)](https://img.shields.io/npm/v/@salilvnair/ngpa.svg?style=plastic)
-# Angular Persistent Api Repository (ngpa) [Electron+Angular App]
+# Angular Persistent Api Repository (ngpa-repository) [Electron+Angular App]
 
-    Angular Persistent API ngpa is similar to
+    Angular Persistent API ngpa-repository is similar to
     Springboot JPA repository where we can define our custom
     repo with entity class as generic type and all of the
     default available crud functions can be directly used.
@@ -31,7 +30,7 @@ global.ngpa_provider = {
 #### 3. Create a model class with a decorator `Database`
 
 ```javascript
-import { Database } from "@salilvnair/ngpa";
+import { Database } from "ngpa-repository";
 
 @Database("employee")
 export class Employee {
@@ -45,7 +44,7 @@ export class Employee {
 #### 4. Create a repo for above model class extending `NeDBRepository` and implement the `returnEntityInstance` method like below
 
 ```javascript
-import { NeDBRepository } from "@salilvnair/ngpa";
+import { NeDBRepository } from "ngpa-repository";
 import { Employee } from "../model/employee.model";
 
 export class EmployeeRepo extends NeDBRepository<Employee> {
@@ -61,7 +60,7 @@ export class EmployeeRepo extends NeDBRepository<Employee> {
 ```javascript
 import { NgModule } from "@angular/core";
 import { AppComponent } from "./app.component";
-import { NgpaRepositoryModule } from "@salilvnair/ngpa";
+import { NgpaRepositoryModule } from "ngpa-repository";
 
 @NgModule({
   declarations: [AppComponent],

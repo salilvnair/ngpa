@@ -129,6 +129,41 @@
           }
         }
       }
+    },
+    "ngpa": {
+      "root": "projects/ngpa",
+      "sourceRoot": "projects/ngpa/src",
+      "projectType": "library",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/ngpa/tsconfig.lib.json",
+            "project": "projects/ngpa/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ngpa/src/test.ts",
+            "tsConfig": "projects/ngpa/tsconfig.spec.json",
+            "karmaConfig": "projects/ngpa/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ngpa/tsconfig.lib.json",
+              "projects/ngpa/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "ngpa-lib"

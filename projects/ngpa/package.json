@@ -1,0 +1,26 @@
+{
+  "name": "@salilvnair/ngpa",
+  "version": "1.0.1",
+  "author": {
+    "name": "Salil V Nair"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/salilvnair/ngpa.git"
+  },
+  "homepage": "https://github.com/salilvnair/ngpa",
+  "license": "MIT",
+  "keywords": [
+    "angular",
+    "ng",
+    "electron",
+    "nedb"
+  ],
+  "peerDependencies": {
+    "@angular/common": "^7.0.0",
+    "@angular/core": "^7.0.0",
+    "electron": "^4.0.0",
+    "ngx-electron": "^2.0.0",
+    "nedb": "^1.8.0"
+  }
+}

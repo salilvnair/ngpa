@@ -16,6 +16,14 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "ngpa": [
+        "dist/ngpa"
+      ],
+      "ngpa/*": [
+        "dist/ngpa/*"
+      ]
+    }
   }
 }
