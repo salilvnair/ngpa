@@ -35,7 +35,6 @@ import { Database } from "@salilvnair/ngpa";
 
 @Database("employee")
 export class Employee {
-  _id: string; // need to give _id as the neDb expects an id as _id
   firstName: string;
   lastName: string;
   designation: string;
@@ -97,10 +96,12 @@ export class AppComponent implements OnInit {
 }
 ```
 
-> _when the above ngOnInit code executes a folder named ngpa-data will be created at the root path._
+> _when the above ngOnInit code executes a folder named **ngpa-data** will be created at the root path._
 
 > _which will have a subfolder named **nedb** which in turn will have two subfolders named **config** and **database**._
 
 > _config folder contains **nedb.config.json** which is generated as default config._
 
 > _database folder is where the real data recides post save with file named as whatever given in the entity Database decorators value._
+
+> _records in each database will have _id attribute uniquely generated id by nedb._
