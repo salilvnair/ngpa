@@ -16,13 +16,21 @@ export class FsCommonUtil {
   }
 
   checkAndCreateDestinationPath(fileDestination) {
-    const dirPath = fileDestination.split("\\");
-    var self = this;
-    dirPath.forEach((element: any, index: number) => {
-      if (!self.fs.existsSync(dirPath.slice(0, index + 1).join("/"))) {
-        self.fs.mkdirSync(dirPath.slice(0, index + 1).join("/"));
+    this._forceCreateDir(fileDestination);
+  }
+
+  _forceCreateDir(dir:string) {
+    if (this.fs.existsSync(dir)) {
+      return;
+    }
+    try {
+      this.fs.mkdirSync(dir);
+    } catch (err) {
+      if(err+''.indexOf('ENOENT')){
+         this._forceCreateDir(this.path.dirname(dir)); //create parent dir
+         this._forceCreateDir(dir); //create dir
       }
-    });
+    }
   }
 
   readFileAsJson(jsonPath) {
