@@ -1,11 +1,12 @@
 import { INgpaWriteRespository } from "../../../service/ngpa-respository.service";
 import { INgpaReadRespository } from "../../../service/ngpa-repository.service";
-import { Injectable } from "@angular/core";
+import { Injectable, Optional } from "@angular/core";
 import { JsonCommonUtil } from "../util/json-common.util";
 import { NeDBConnectionManager } from "./nedb-manager.service";
 import { NeDBConfig } from "../model/nedb-config.model";
 import * as NeDBConstant from "../constant/nedb.constant";
 import { NeDBService } from "./nedb.service";
+import { ElectronAppUtil } from "../util/electron-app.util";
 @Injectable()
 export abstract class NeDBRepository<T>
   implements INgpaWriteRespository<T>, INgpaReadRespository<T> {
@@ -13,7 +14,8 @@ export abstract class NeDBRepository<T>
   private initializedNeDBConfig: boolean = false;
   constructor(
     private neDBConnectionManager: NeDBConnectionManager,
-    private neDBService: NeDBService<T>
+    private neDBService: NeDBService<T>,
+    @Optional() private config: NeDBConfig
   ) {
     this.init();
   }
@@ -53,7 +55,8 @@ export abstract class NeDBRepository<T>
   private initExplicitDB() {
     this.neDB = this.neDBConnectionManager.getDefinedInstance(
       this.getDatabaseFolderName(),
-      this.getDatabaseNameFromRepo()
+      this.getDatabaseNameFromRepo(),
+      this.config
     );
   }
 
@@ -74,7 +77,7 @@ export abstract class NeDBRepository<T>
   }
 
   private initNeDBConfig() {
-    this.neDBConfig = this.neDBConnectionManager.getNeDBConfig();
+    this.neDBConfig = this.neDBConnectionManager.getNeDBConfig(this.config);
   }
 
   compactDatabase() {

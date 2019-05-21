@@ -7,5 +7,6 @@ export const NEDB_DATABASE_FILENAME_EXTENSTION = ".db";
 export const NEDB_DEFAULT_CONFIG: NeDBConfig = {
   applicationName: "AppName",
   createExplicitDB: true,
-  inMemoryDB: false
+  inMemoryDB: false,
+  storeInUserHome:false
 };

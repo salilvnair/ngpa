@@ -12,7 +12,7 @@ import { TestRepository } from './test/repo/test.repo';
   ],
   imports: [
     BrowserModule,
-    NgpaRepositoryModule
+    NgpaRepositoryModule.configure({applicationName:'HolyWOw',createExplicitDB:true,inMemoryDB:false,storeInUserHome:true})
   ],
   providers: [TestRepository],
   bootstrap: [AppComponent]

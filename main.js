@@ -25,7 +25,7 @@ function createWindow() {
 
   //browserWindow.setMenu(null);
 
-  browserWindow.loadURL("http://localhost:4200");
+  browserWindow.loadURL("http://localhost:4300");
 
   // Open the DevTools.
   browserWindow.webContents.openDevTools();
