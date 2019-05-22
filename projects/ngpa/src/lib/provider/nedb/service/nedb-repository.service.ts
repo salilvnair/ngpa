@@ -6,7 +6,6 @@ import { NeDBConnectionManager } from "./nedb-manager.service";
 import { NeDBConfig } from "../model/nedb-config.model";
 import * as NeDBConstant from "../constant/nedb.constant";
 import { NeDBService } from "./nedb.service";
-import { ElectronAppUtil } from "../util/electron-app.util";
 @Injectable()
 export abstract class NeDBRepository<T>
   implements INgpaWriteRespository<T>, INgpaReadRespository<T> {

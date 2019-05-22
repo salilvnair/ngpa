@@ -1,22 +1,46 @@
 import { ElectronService } from "ngx-electron";
-import { Injectable } from "@angular/core";
+import { Injectable, Optional } from "@angular/core";
 import * as NgpaConstant from "../../../constant/ngpa.constant";
 import * as NeDBConstant from "../constant/nedb.constant";
 import { ID_PROPERTY_DECORATOR_KEY } from "../decorator/identifier.metadata";
+import { NeDBConfig } from "../model/nedb-config.model";
+import { ElectronAppUtil } from "../util/electron-app.util";
 @Injectable()
 export class NeDBService<T> {
-  constructor(private electronService: ElectronService) {}
+  constructor(
+     private electronService: ElectronService,
+     private electronAppUtil: ElectronAppUtil,
+    @Optional() private config: NeDBConfig
+    ) {}
   selectAllSync(databaseName: string): T[] {
     var rows: T[] = [];
     var app = this.electronService.remote.require("electron").app;
     var path = this.electronService.remote.require("path");
-    var configPathDetail = path.join(
-      app.getAppPath(),
-      NgpaConstant.NGPA_FOLDER_NAME,
-      NeDBConstant.NEDB_HOME_FOLDER_NAME,
-      NeDBConstant.NEDB_CONFIG_DATABASE_FOLDER_NAME,
-      databaseName + NeDBConstant.NEDB_DATABASE_FILENAME_EXTENSTION
-    );
+    let configPathDetail: string;
+    let neDBConfig = this.config; 
+    if(neDBConfig){
+      if(neDBConfig.storeInUserHome) {
+        configPathDetail = path.join(
+          this.electronAppUtil.getUserHome(),
+          '.ngpa',
+          neDBConfig.applicationName.toLowerCase(),
+          NgpaConstant.NGPA_FOLDER_NAME,
+          NeDBConstant.NEDB_HOME_FOLDER_NAME,
+          NeDBConstant.NEDB_CONFIG_DATABASE_FOLDER_NAME,
+          databaseName + NeDBConstant.NEDB_DATABASE_FILENAME_EXTENSTION
+        );
+      }
+    }
+    else{
+      configPathDetail = path.join(
+        app.getAppPath(),
+        NgpaConstant.NGPA_FOLDER_NAME,
+        NeDBConstant.NEDB_HOME_FOLDER_NAME,
+        NeDBConstant.NEDB_CONFIG_DATABASE_FOLDER_NAME,
+        databaseName + NeDBConstant.NEDB_DATABASE_FILENAME_EXTENSTION
+      );
+    }
+
     var fs = this.electronService.remote.require("fs");
     var data = fs.readFileSync(configPathDetail, "utf8");
     if (data == "" || data == null) {
